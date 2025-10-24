@@ -1,7 +1,7 @@
 # firebolt meta-bolt-distro
 This repository defines and provides the **RDK Firebolt Yocto distribution**, derived from Yocto **Poky** and tailored to build hardware-agnostic **Firebolt Native Applications** and **runtimes**.
 
-A Firebolt Native Application is referred to as a **"bolt" app** or simply a **"bolt"**. Each bolt represents an application or runtime layer (in a defined OCI artifact format) that, together with the Firebolt mandatory **commom base layer**, forms a second-generation Downloadable Application Container (**DAC2**) within RDK. The base layer is defined in this distribution (see **meta-bolt-base**).
+A Firebolt Native Application is referred to as a **"bolt" app** or simply a **"bolt"**. Each bolt represents an application or runtime layer (in a defined OCI artifact format) that, together with the Firebolt mandatory **common base layer**, forms a second-generation Downloadable Application Container (**DAC2**) within RDK. The base layer is defined in this distribution (see **meta-bolt-base**).
 
 To support bolt application development in other build and development environments than Yocto, each release of this distribution also has an associated Yocto SDK export, available on the firebolt-sdk repository. The **SDK** release then includes the **cross-compilation toolchain** defined by this distribution (supporting arm, arm64, and amd64 targets), along with **binary releases of the base layer**, header files, and other tools required to build bolt applications.
 
@@ -18,49 +18,59 @@ Each release version of this distribution is derived from a specific release ver
 - meta-bolt-tools - meta-layer with recipes for tools related to creation of OCI artifacts from build artifacts and interaction with STB
 - manifests - repo tool manifest files defining all meta-layer repositories and versions required for specific version of this distribution and to build specific version of base layer or example application layer oci artifacts using this distribution.
 
+The following target machines are supported:
+- arm   - arm 32bit mode, SDK is only for compiling Apps in userland, kernel can be running 32bit or 64bit mixed mode
+- arm64 - arm 64bit mode, requires 64bit kernel, RDK middleware is not fully supporting 64bit mode yet
+- amd64 - x86 64bit mode, for running of x86 PC/virtual device
+
 # how to setup and build base-layer
-  #Pre-requisite : host build machine is setup for yocto kirkstone building and has google repo tool installed, see  
-  #"Build host deps for yocto https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html#build-host-packages" and  
-  #"install repo tool on build host https://android.googlesource.com/tools/repo "
 
-  #Create a build directory to work in, once per "abuild" setup dir  
-  mkdir abuild; cd abuild
+Before using this instruction the build machine must be prepared to meet requirements of the Yocto Project described in the
+[Required Packages for the Build Host](https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host) section
+of the Yocto Project documentation and include the [repo tool](https://android.googlesource.com/tools/repo). The recommended Linux distribution for build machines is Ubuntu 20.04.
 
-  #initialise and code sync with repo tool the manifest with repositories for this App SDK base layer project  
-  #repo init is once per "abuild" dir setup  
-  #old repo init -u https://github.com/stagingrdkm/meta-bolt-distro/ -m manifests/manifest-base.xml  
-  repo init -u https://github.com/rdkcentral/meta-bolt-distro/ -m manifests/base/base.dev.xml   
-  repo sync --no-clone-bundle -v -j$(getconf _NPROCESSORS_ONLN)
+Setup the **bolt** build environment by executing:
+```
+source setup-environment
+```
 
-  #yocto poky build environment setup script. Once per shell you are building in  
-  source oe-init-build-env
+If necessary, adjust the configuration based on the displayed instructions:
+```
+### Welcome to bolt distro ###
 
-  #configure your conf/local.conf and bblayers.conf once per "abuild" setup  
-  #there is template you can copy from  
-  cp ../bolt/meta-bolt-base/conf/templates/local.conf.sample conf/local.conf  
-  cp ../bolt/meta-bolt-base/conf/templates/bblayers.conf.sample conf/bblayers.conf  
-  #copy MULTICONFIG template to allow compilation for all machines in one command  
-  cp -r ../bolt/meta-bolt-base/conf/templates/mu* conf/.    
-  vi conf/local.conf  
-  #doublecheck DISTRO = "rdke-appsdk"  
-  grep DISTRO conf/local.conf  
-  #set your local differences like DL_DIR  
-  vi conf/local.conf  
+Available machines: arm (default), arm64 and amd64
 
-  #The App SDK supports 3 ABI's  
-  #You need to select one of the following machine configurations in conf/local.conf:  
-  #1."arm"   - arm 32bit mode, SDK is only for compiling Apps in userland, kernel can be running 32bit or 64bit mixed mode  
-  #2."arm64" - arm 64bit mode, requires 64bit kernel, RDK middleware is not fully supporting 64bit mode yet  
-  #3."amd64" - x86 64bit mode, for running of x86 PC/virtual device  
-  #default config in local.conf.sample is arm. You can adapt with  
-  vi conf/local.conf  
-  MACHINE = "arm" 
- 
-  #build the base image, rdk-app-base-image-1 stands for profile 1 of base image.  
-  bitbake rdke-app-baselayer-p1  
-  #if you want to compile for all CPU_arch in one go, output will be 3 separate images in deploy dir   
-  bitbake multiconfig:arm:rdke-app-baselayer-p1 \  
-         multiconfig:arm64:rdke-app-baselayer-p1 \   
-         multiconfig:amd64:rdke-app-baselayer-p1  
+To select a different machine:
+  echo 'MACHINE = "arm64"' >> conf/local.conf
 
+To enable multi config:
+  echo 'BBMULTICONFIG = "arm arm64 amd64"' >> conf/local.conf
 
+Example targets:
+  bitbake rdke-app-baselayer-p1            # no multi config
+
+  bitbake mc:arm:rdke-app-baselayer-p1   \
+          mc:arm64:rdke-app-baselayer-p1 \
+          mc:amd64:rdke-app-baselayer-p1   # requires multi config
+```
+
+To start the base-layer build for the ARM architecture execute:
+```
+bitbake rdke-app-baselayer-p1
+```
+
+## .env
+
+The `.env` file located in the directory from which the `setup-environment` script is sourced can be used to provide
+additional environment variables to optimize the build process. Currently, the following variables are supported:
+- `BOLT_REPO_INIT_PARAMS` - additional parameters provided to the repo init command
+- `BOLT_REPO_SYNC_PARAMS` - additional parameters provided to the repo sync command
+- `BOLT_DL_DIR` - specifies value for the [DL_DIR](https://docs.yoctoproject.org/ref-manual/variables.html#term-DL_DIR) variable
+- `BOLT_SSTATE_DIR` - specifies value for the [SSTATE_DIR](https://docs.yoctoproject.org/ref-manual/variables.html#term-SSTATE_DIR) variable
+
+An example `.env` file might look like this:
+```
+BOLT_REPO_SYNC_PARAMS="--no-clone-bundle -v -j$(getconf _NPROCESSORS_ONLN)"
+BOLT_DL_DIR=${HOME}/downloads
+BOLT_SSTATE_DIR=${HOME}/sstate-cache
+```

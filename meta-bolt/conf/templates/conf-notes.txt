@@ -1,0 +1,17 @@
+
+### Welcome to bolt distro ###
+
+Available machines: arm (default), arm64 and amd64
+
+To select a different machine:
+  echo 'MACHINE = "arm64"' >> conf/local.conf
+
+To enable multi config:
+  echo 'BBMULTICONFIG = "arm arm64 amd64"' >> conf/local.conf
+
+Example targets:
+  bitbake rdke-app-baselayer-p1            # no multi config
+
+  bitbake mc:arm:rdke-app-baselayer-p1   \
+          mc:arm64:rdke-app-baselayer-p1 \
+          mc:amd64:rdke-app-baselayer-p1   # requires multi config
