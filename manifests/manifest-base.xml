@@ -32,10 +32,4 @@
              name="meta-virtualization"
          revision="3e4dba95e6b5f5f68d0b3a5899b106c89da59428"
              path="meta-virtualization"/>
-
-  <project remote="github"
-             name="stagingrdkm/meta-bolt-distro"
-         revision="develop"
-             path="bolt"/>
-
 </manifest>
