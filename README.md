@@ -65,16 +65,16 @@ To enable multi config:
   echo 'BBMULTICONFIG = "arm arm64 amd64"' >> conf/local.conf
 
 Example targets:
-  bitbake rdke-app-baselayer-p1            # no multi config
+  bitbake base-bolt-image            # no multi config
 
-  bitbake mc:arm:rdke-app-baselayer-p1   \
-          mc:arm64:rdke-app-baselayer-p1 \
-          mc:amd64:rdke-app-baselayer-p1   # requires multi config
+  bitbake mc:arm:base-bolt-image   \
+          mc:arm64:base-bolt-image \
+          mc:amd64:base-bolt-image   # requires multi config
 ```
 
 * Start building the base layer. If you haven't changed your configuration, the command below will create the base layer for the ARM architecture.
 ```
-bitbake rdke-app-baselayer-p1
+bitbake base-bolt-image
 ```
 
 ### .env

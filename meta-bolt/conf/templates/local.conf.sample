@@ -27,7 +27,7 @@ MACHINE = "arm"
 #
 #Because of MULTICONFIG setup it is possible to compile for all 3 CPU arch in one command. 
 #compilation will happen sequentually and output will be 3 separate images in deploy dir. Command to use for that is following:
-#bitbake rdke-app-baselayer-p1:multiconfig:arm rdke-app-baselayer-p1:multiconfig:arm64 rdke-app-baselayer-p1:multiconfig:amd64
+#bitbake base-bolt-image:multiconfig:arm base-bolt-image:multiconfig:arm64 base-bolt-image:multiconfig:amd64
 #
 #BBMULTICONFIG = "arm arm64 amd64"
 #
