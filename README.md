@@ -12,7 +12,7 @@ Each release version of this distribution is derived from a specific release ver
 
 **This repository includes**:
 
-- bitbake config files defining the "bolt" distro
+- meta-bolt - bitbake config files defining the **bolt** distro
 - meta-bolt-base - meta-layer with recipes providing configuration for packages used by the base layer
 - meta-bolt-app-examples - meta-layer with recipes required for building sample applications. This layer is not enabled by default; to use it, it must be added to the bblayers.conf file
 - meta-bolt-tools - meta-layer with recipes for tools related to creation of OCI artifacts from build artifacts and interaction with STB
@@ -23,18 +23,36 @@ The following target machines are supported:
 - arm64 - arm 64bit mode, requires 64bit kernel, RDK middleware is not fully supporting 64bit mode yet
 - amd64 - x86 64bit mode, for running of x86 PC/virtual device
 
-# how to setup and build base-layer
+# Setup and building
 
-Before using this instruction the build machine must be prepared to meet requirements of the Yocto Project described in the
-[Required Packages for the Build Host](https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host) section
-of the Yocto Project documentation and include the [repo tool](https://android.googlesource.com/tools/repo). The recommended Linux distribution for build machines is Ubuntu 20.04.
+## Setup of the build host
 
-Setup the **bolt** build environment by executing:
+Before building the base layer, the build host must be prepared as described in the
+[Required Packages for the Build Host](https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
+section of the Yocto Project documentation and have the [repo tool](https://android.googlesource.com/tools/repo) installed.
+The recommended Linux distribution for the build host is Ubuntu 20.04.
+
+## Building the base layer
+
+The base layer can be built by following the steps described below.
+
+* Download this repository and enter its root directory.
+```
+git clone git@github.com:rdkcentral/meta-bolt-distro.git
+cd meta-bolt-distro
+```
+
+* Optionally, prepare the [.env](#env) file using your favorite text editor.
+```
+vi .env
+```
+
+* Setup the build environment.
 ```
 source setup-environment
 ```
 
-If necessary, adjust the configuration based on the displayed instructions:
+* Optionally, adjust the configuration based on the displayed instructions.
 ```
 ### Welcome to bolt distro ###
 
@@ -54,14 +72,14 @@ Example targets:
           mc:amd64:rdke-app-baselayer-p1   # requires multi config
 ```
 
-To start the base-layer build for the ARM architecture execute:
+* Start building the base layer. If you haven't changed your configuration, the command below will create the base layer for the ARM architecture.
 ```
 bitbake rdke-app-baselayer-p1
 ```
 
-## .env
+### .env
 
-The `.env` file located in the directory from which the `setup-environment` script is sourced can be used to provide
+The `.env` file, located in the directory from which the `setup-environment` script is sourced, can be used to provide
 additional environment variables to optimize the build process. Currently, the following variables are supported:
 - `BOLT_REPO_INIT_PARAMS` - additional parameters provided to the repo init command
 - `BOLT_REPO_SYNC_PARAMS` - additional parameters provided to the repo sync command
