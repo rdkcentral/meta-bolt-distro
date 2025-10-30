@@ -38,7 +38,7 @@ The base layer can be built by following the steps described below.
 
 * Download this repository and enter its root directory.
 ```
-git clone git@github.com:rdkcentral/meta-bolt-distro.git
+git clone https://github.com/rdkcentral/meta-bolt-distro.git
 cd meta-bolt-distro
 ```
 

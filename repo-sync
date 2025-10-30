@@ -22,7 +22,7 @@ test -f .env && source $_
 set -e
 
 BASE_DIR=$(readlink -m "$(dirname "${BASH_SOURCE[0]}")")
-MANIFEST="${BASE_DIR}/manifests/manifest-base.xml"
+MANIFEST="${BASE_DIR}/manifests/oss/oss.kirkstone.xml"
 
 mkdir -p poky
 pushd $_
