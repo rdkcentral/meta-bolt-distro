@@ -42,7 +42,6 @@ MACHINE = "arm"
 # The default is a downloads directory under TOPDIR which is the build directory.
 #
 #DL_DIR ?= "${TOPDIR}/downloads"
-#DL_DIR ?= "/shared/rdk/appsdk/oe-downloads"
 
 #
 # Where to place shared-state files
@@ -80,7 +79,7 @@ MACHINE = "arm"
 # Ultimately when creating custom policy, people will likely end up subclassing 
 # these defaults.
 #
-DISTRO = "rdke-appsdk"
+DISTRO = "bolt-distro"
 # As an example of a subclass there is a "bleeding" edge policy configuration
 # where many versions are set to the absolute latest code from the upstream 
 # source control systems. This is just mentioned here as an example, its not

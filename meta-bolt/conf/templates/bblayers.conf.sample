@@ -15,6 +15,7 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-openembedded/meta-networking \
   ##OEROOT##/meta-openembedded/meta-multimedia \
   ##OEROOT##/meta-virtualization \
+  ##BOLTROOT##/meta-bolt \
   ##BOLTROOT##/meta-bolt-base \
 "
 
