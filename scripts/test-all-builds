@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# If not stated otherwise in this file or this component's LICENSE file the
+# following copyright and licenses apply:
+#
+# Copyright 2025 RDK Management
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eu
+
+BUILD_DIR=$(mktemp -d -p .)
+BUILD_DIR=$(readlink -m "${BUILD_DIR}")
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+BOLT_ROOT=$(readlink -m "${SCRIPT_DIR}/..")
+
+export BOLT_ROOT
+
+cleanup() {
+  rm -rf "${BUILD_DIR}"
+  echo "Build failed!"
+  trap "true" ERR INT
+}
+
+trap cleanup ERR INT
+
+build() {
+  set -e
+  unset -f build
+
+  local bolt_root=${BOLT_ROOT}
+  unset BOLT_ROOT
+  local build_targets="$*"
+  shift $#
+
+  source "${bolt_root}/setup-environment"
+
+  if [[ ${build_targets} == mc:* ]]; then
+    echo 'BBMULTICONFIG = "arm arm64 amd64"' >> conf/local.conf
+  fi
+
+  bitbake ${build_targets}
+}
+
+export -f build
+
+run() {
+  bash -c "$*" || return $?
+}
+
+cd "${BUILD_DIR}"
+
+test -f "${BOLT_ROOT}/.env"    && cp "$_" .
+test -f "${BUILD_DIR}/../.env" && cp "$_" .
+
+run build base-bolt-image
+
+run build mc:arm:base-bolt-image   \
+          mc:arm64:base-bolt-image \
+          mc:amd64:base-bolt-image
+
+cd ..
+rm -rf "${BUILD_DIR}"
+
+echo
+echo "All builds were successful!"
