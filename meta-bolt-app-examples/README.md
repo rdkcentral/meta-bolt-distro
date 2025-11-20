@@ -9,7 +9,7 @@ section in the [meta-bolt-distro](https://github.com/rdkcentral/meta-bolt-distro
 
 ## wayland egl OCI image building instructions
 
-* Download this repository and enter its root directory.
+* Download meta-bolt-distro repository and enter meta-bolt-app-examples directory.
 ```
 git clone https://github.com/rdkcentral/meta-bolt-distro.git
 cd meta-bolt-distro/meta-bolt-app-examples
