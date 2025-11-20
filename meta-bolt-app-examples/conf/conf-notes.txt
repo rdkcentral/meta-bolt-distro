@@ -1,5 +1,7 @@
 
-  bitbake wayland-egl-bolt-image          # no multi config
+  bitbake wayland-egl-bolt-image            # no multi config
 
-  bitbake mc:arm:wayland-egl-bolt-image   # requires multi config
+  bitbake mc:arm:wayland-egl-bolt-image \
+          mc:arm64:wayland-egl-bolt-image \
+          mc:amd64:wayland-egl-bolt-image   # requires multi config
 
