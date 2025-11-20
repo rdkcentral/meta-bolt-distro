@@ -1,6 +1,6 @@
 # meta-bolt-app-examples
 
-Bitbake meta layer extending the **bolt** distro with recipes allowing to build Cobalt OCI image.
+Bitbake meta layer extending the **bolt** distro with recipes allowing to build wayland egl OCI image.
 
 # Setup and building
 
