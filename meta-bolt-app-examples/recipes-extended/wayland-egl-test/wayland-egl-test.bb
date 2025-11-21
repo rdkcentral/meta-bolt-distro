@@ -15,23 +15,23 @@ SRC_URI = " \
 
 inherit pkgconfig
 
-TEST_NAME         = "wayland-egl-test"
-TEST_NAME_EPOXY   = "wayland-egl-test-epoxy"
+TEST_NAME    = "wayland-egl-test"
+INPUT_NAME   = "wayland-egl-test-input"
 
 TARGET_CFLAGS     += " -O3 -ggdb3"
 
 TARGET_CC_ARCH    += "${LDFLAGS}"
 
 do_compile () {
-  ${CC} ${TARGET_CFLAGS}              -o ${TEST_NAME}       ${S}/wayland-egl.c    $(pkg-config --cflags --libs       wayland-client wayland-egl glesv2 egl)
-  ${CC} ${TARGET_CFLAGS} -DHAVE_EPOXY -o ${TEST_NAME_EPOXY} ${S}/wayland-egl.c    $(pkg-config --cflags --libs epoxy wayland-client wayland-egl)
+  ${CC} ${TARGET_CFLAGS}              -o ${TEST_NAME}       ${S}/wayland-egl.c    $(pkg-config --cflags --libs wayland-client wayland-egl glesv2 egl)
+  ${CC} ${TARGET_CFLAGS}              -o ${INPUT_NAME}       ${S}/wayland-input.c $(pkg-config --cflags --libs wayland-client wayland-egl glesv2 egl xkbcommon)  
 }
 
 do_install() {
   install -p -m 0755 -D ${S}/${TEST_NAME}         ${D}${bindir}/${TEST_NAME}
-  install -p -m 0755 -D ${S}/${TEST_NAME_EPOXY}   ${D}${bindir}/${TEST_NAME_EPOXY}
+  install -p -m 0755 -D ${S}/${INPUT_NAME}   ${D}${bindir}/${INPUT_NAME}
 }
 
-PACKAGES =+ "${PN}-epoxy"
+PACKAGES =+ "${PN}-input"
 FILES:${PN} = "${bindir}/wayland-egl-test"
-FILES:${PN}-epoxy = "${bindir}/wayland-egl-test-epoxy"
+FILES:${PN}-input = "${bindir}/wayland-egl-test-input"

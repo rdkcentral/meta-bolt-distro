@@ -1,6 +1,6 @@
 # meta-bolt-app-examples
 
-Bitbake meta layer extending the **bolt** distro with recipes allowing to build wayland egl OCI image.
+Bitbake meta layer extending the **bolt** distro with recipes allowing to build OCI image of app examples.
 
 # Setup and building
 
@@ -9,22 +9,28 @@ section in the [meta-bolt-distro](https://github.com/rdkcentral/meta-bolt-distro
 
 ## wayland egl OCI image building instructions
 
-* Download meta-bolt-distro repository and enter meta-bolt-app-examples directory.
+* Download this repository and enter its root directory.
 ```
 git clone https://github.com/rdkcentral/meta-bolt-distro.git
-cd meta-bolt-distro/meta-bolt-app-examples
+cd meta-bolt-distro/meta-bolt-app-exampls
 ```
 
 * Setup the build environment.
 ```
-source setup-environment
+source meta-bolt-app-examples/setup-environment
 ```
 
 * Start building the wayland egl OCI image.
 ```
-bitbake wayland-egl-bolt-image                # no multi config
 
-bitbake mc:arm:wayland-egl-bolt-image \
-        mc:arm64:wayland-egl-bolt-image \
-        mc:amd64:wayland-egl-bolt-image       # requires multi config
+bitbake wayland-egl-test-bolt-image \
+        wayland-egl-test-epoxy-bolt-image  # no multi config
+
+bitbake mc:arm:wayland-egl-test-bolt-image \
+        mc:arm64:wayland-egl-test-bolt-image \
+        mc:amd64:wayland-egl-test-bolt-image  \
+        mc:arm:wayland-egl-test-epoxy-bolt-image \
+        mc:arm64:wayland-egl-test-epoxy-bolt-image \
+        mc:amd64:wayland-egl-test-epoxy-bolt-image   # requires multi config
+
 ```

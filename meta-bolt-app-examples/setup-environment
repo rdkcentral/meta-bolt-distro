@@ -21,15 +21,7 @@ META_ROOT=$(readlink -m "$(dirname "${BASH_SOURCE[0]}")")
 BASE_PATH=${META_ROOT}/..
 SETUP_SCRIPT=${BASE_PATH}/setup-environment
 
-if [ -f ${SETUP_SCRIPT} ]; then
-  pushd ${BASE_PATH} > /dev/null
-  source ${SETUP_SCRIPT}
-  popd > /dev/null
-fi
-
-if [[ -n "${BUILDDIR}" && "$(pwd)" != "$(readlink -m ${BUILDDIR})" ]]; then
-   cd ${BUILDDIR}
-fi
+source ${SETUP_SCRIPT}
 
 if [[ -n "${BUILDDIR}" && "$(pwd)" == "$(readlink -m ${BUILDDIR})" ]]; then
   cat ${META_ROOT}/conf/conf-notes.txt
