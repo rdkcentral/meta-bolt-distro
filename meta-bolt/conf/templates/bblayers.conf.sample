@@ -17,5 +17,5 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-virtualization \
   ##BOLTROOT##/meta-bolt \
   ##BOLTROOT##/meta-bolt-base \
+  ##BOLTROOT##/meta-bolt-tools \
 "
-
