@@ -62,6 +62,10 @@ if [ -n "${BUILDDIR}" ]; then
     fi
 
     unset -f "${2}"
+
+    PATH=${BUILDDIR}/tmp-glibc/work/bolt-linux/bolt-env/1.0-r0/recipe-sysroot-native/usr/bin:${PATH}
+    PATH=${BUILDDIR}/tmp-glibc/work/bolt-linux/bolt-env/1.0-r0/recipe-sysroot-native/usr/sbin:${PATH}
+    PATH=${PATH}:${BOLT_ROOT}/scripts
   }
 
   distro_setup() {
