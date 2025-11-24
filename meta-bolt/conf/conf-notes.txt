@@ -1,0 +1,6 @@
+Example targets:
+  bitbake base-bolt-image            # no multi config
+
+  bitbake mc:arm:base-bolt-image   \
+          mc:arm64:base-bolt-image \
+          mc:amd64:base-bolt-image   # requires multi config

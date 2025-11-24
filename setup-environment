@@ -20,18 +20,69 @@
 test -f .env && source $_
 
 BOLT_ROOT=$(readlink -m "$(dirname "${BASH_SOURCE[0]}")")
+BOLT_POKY_SCRIPT=poky/oe-init-build-env
 TEMPLATECONF=${TEMPLATECONF:-${BOLT_ROOT}/meta-bolt/conf/templates}
 
-if [ ! -d poky ]; then
+if [ ! -f "${BOLT_POKY_SCRIPT}" ]; then
   "${BOLT_ROOT}/repo-sync"
 fi
 
-source poky/oe-init-build-env
-
-sed -i "s@##BOLTROOT##@${BOLT_ROOT}@g" conf/bblayers.conf
-
-if [ ! -f conf/bolt.done ]; then
-  test -n "${BOLT_DL_DIR}"     && echo "DL_DIR = \"$_\""     >> conf/local.conf
-  test -n "${BOLT_SSTATE_DIR}" && echo "SSTATE_DIR = \"$_\"" >> conf/local.conf
-  echo "${BOLT_ROOT}" > conf/bolt.done
+if [ ! -f "${BOLT_POKY_SCRIPT}" ]; then
+  echo "${BOLT_POKY_SCRIPT} not found!"
+else
+  source "${BOLT_POKY_SCRIPT}"
 fi
+
+if [ -n "${BUILDDIR}" ]; then
+  bolt_layer_setup() {
+    local layer
+    layer=$(readlink -m "${1}")
+
+    if ! grep -qs "^${layer}$" conf/setup.done; then
+      if [ "$(type -t "${2}")" = "function" ]; then
+        "${2}" "${layer}"
+      fi
+
+      if [ -f "${layer}/conf/layer.conf" ]; then
+        if [ "${1}" != "${BOLT_ROOT}" ]; then
+          echo "BBLAYERS:append = \" ${layer}\"" >> conf/bblayers.conf
+        fi
+      fi
+
+      echo "${layer}" >> conf/setup.done
+    fi
+
+    if [ -f "${layer}/conf/conf-notes.txt" ]; then
+      cat "${layer}/conf/conf-notes.txt"
+    fi
+
+    if [ "$(type -t "${3}")" = "function" ]; then
+      "${3}"
+      unset -f "${3}"
+    fi
+
+    unset -f "${2}"
+  }
+
+  distro_setup() {
+    sed -i "s@##BOLTROOT##@${1}@g" conf/bblayers.conf
+
+    test -n "${BOLT_DL_DIR}"     && echo "DL_DIR = \"$_\""     >> conf/local.conf
+    test -n "${BOLT_SSTATE_DIR}" && echo "SSTATE_DIR = \"$_\"" >> conf/local.conf
+  }
+
+  bolt_layer_setup "${BOLT_ROOT}" distro_setup
+
+  if [ "${#BASH_SOURCE[@]}" = 1 ]; then
+    cat "${BOLT_ROOT}/meta-bolt/conf/conf-notes.txt"
+  fi
+else
+  bolt_layer_setup() {
+    unset -f "${2}"
+    unset -f "${3}"
+  }
+fi
+
+unset TEMPLATECONF
+unset BOLT_POKY_SCRIPT
+unset BOLT_ROOT
