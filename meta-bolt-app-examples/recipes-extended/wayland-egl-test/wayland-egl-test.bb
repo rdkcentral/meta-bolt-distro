@@ -24,7 +24,7 @@ TARGET_CC_ARCH    += "${LDFLAGS}"
 
 do_compile () {
   ${CC} ${TARGET_CFLAGS} -o ${TEST_NAME} ${S}/wayland-egl.c $(pkg-config --cflags --libs wayland-client wayland-egl glesv2 egl)
-  ${CC} ${TARGET_CFLAGS} -o ${INPUT_NAME} ${S}/wayland-input.c $(pkg-config --cflags --libs wayland-client wayland-egl glesv2 egl xkbcommon)  
+  ${CC} ${TARGET_CFLAGS} -o ${INPUT_NAME} ${S}/wayland-input.c $(pkg-config --cflags --libs wayland-client wayland-egl glesv2 egl xkbcommon)
 }
 
 do_install() {
