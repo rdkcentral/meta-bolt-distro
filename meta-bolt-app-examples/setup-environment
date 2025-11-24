@@ -17,19 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-META_ROOT=$(readlink -m "$(dirname "${BASH_SOURCE[0]}")")
-BASE_PATH=${META_ROOT}/..
-SETUP_SCRIPT=${BASE_PATH}/setup-environment
+BOLT_LAYER_SETUP_SCRIPT=$(realpath -se "${BASH_SOURCE[0]}")
 
-source ${SETUP_SCRIPT}
+source "${BOLT_LAYER_SETUP_SCRIPT%/*}/../setup-environment"
 
-if [[ -n "${BUILDDIR}" && "$(pwd)" == "$(readlink -m ${BUILDDIR})" ]]; then
-  cat ${META_ROOT}/conf/conf-notes.txt
+bolt_layer_setup "${BOLT_LAYER_SETUP_SCRIPT%/*}"
 
-  DIR_FILE=$(basename ${META_ROOT}).done
-
-  if [ ! -f conf/${DIR_FILE} ]; then
-    echo "BBLAYERS:append = \" ${META_ROOT}\"" >> conf/bblayers.conf
-    echo ${META_ROOT} > conf/${DIR_FILE}
-  fi
-fi
+unset BOLT_LAYER_SETUP_SCRIPT
