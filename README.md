@@ -32,7 +32,7 @@ Before building the base layer, the build host must be prepared as described in 
 section of the Yocto Project documentation and have the [repo tool](https://android.googlesource.com/tools/repo) installed.
 The recommended Linux distribution for the build host is Ubuntu 20.04.
 
-## Building the base layer
+## Building the base layer OCI image
 
 The base layer can be built by following the steps described below.
 
@@ -77,7 +77,30 @@ Example targets:
 bitbake base-bolt-image
 ```
 
-### .env
+## Building the base bolt package
+
+To create the base bolt package, follow the same steps as described in the
+[Building the base layer OCI image](#building-the-base-layer-oci-image) chapter, but instead calling `bitbake base-bolt-image`,
+use the [bolt tool](https://github.com/rdkcentral/bolt-tools/tree/main/bolt) as follows:
+```
+bolt make base
+```
+
+The base bolt package provides the foundation for other bolt packages and is often essential for their creation. A common way to deliver
+the base bolt package to other build systems is to use a local package store. The local package store is a directory called `bolts` located in
+the parent directory of all build systems' build directories. In most cases, using a `bolts` directory created in your home directory
+will be a good idea:
+```
+mkdir ${HOME}/bolts
+```
+
+Once the package store is available, the base bolt package may be copied there manually, or it may be done automatically during the build
+process by specifying the `--install` option in the `bolt make` command:
+```
+bolt make base --install
+```
+
+## .env
 
 The `.env` file, located in the directory from which the `setup-environment` script is sourced, can be used to provide
 additional environment variables to optimize the build process. Currently, the following variables are supported:
