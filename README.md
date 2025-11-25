@@ -105,6 +105,10 @@ process by specifying the `--install` option in the `bolt make` command:
 bolt make base --install
 ```
 
+## Building examples
+
+Instructions for creating examples can be found in the [meta-bolt-app-examples/README.md](meta-bolt-app-examples/README.md) file
+
 ## .env
 
 The `.env` file, located in the directory from which the `setup-environment` script is sourced, can be used to provide
