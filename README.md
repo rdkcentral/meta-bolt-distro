@@ -30,6 +30,11 @@ The following target machines are supported:
 Before building the base layer, the build host must be prepared as described in the
 [Required Packages for the Build Host](https://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)
 section of the Yocto Project documentation and have the [repo tool](https://android.googlesource.com/tools/repo) installed.
+
+In addition to the packages listed in the Yocto Project documentation, it's also worth installing packages that provide functionality for
+compiling 32-bit code on 64-bit operating systems, as this functionality is essential for many application build systems. While this may
+vary depending on the Linux distribution, installing the `g++-multilib` package is usually sufficient to achieve this.
+
 The recommended Linux distribution for the build host is Ubuntu 20.04.
 
 ## Building the base layer OCI image
