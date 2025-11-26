@@ -1,10 +1,10 @@
 DESCRIPTION = "Recipe to include the latest OCDM header files"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/Apache-2.0;md5=89aea4e17d99a7cacdbeed46a0096b10"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=847677038847363222ffb66cfa6406c2"
 
-SRC_URI = "git://github.com/rdkcentral/ThunderClientLibraries.git;protocol=https;branch=R4_4;name=wpeframework-clientlibraries"
+SRC_URI = "git://github.com/rdkcentral/ThunderClientLibraries.git;protocol=https;branch=R4_4"
 
-#Tag R4.4.2
+# Tag R4.4.2
 SRCREV = "09a75a85e1263e0520f182dea6dc19c673e070a1"
 
 S = "${WORKDIR}/git"
