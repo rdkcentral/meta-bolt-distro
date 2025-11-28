@@ -42,7 +42,7 @@ use the [bolt tool](https://github.com/rdkcentral/bolt-tools/tree/main/bolt) as 
 ```
 bolt make wayland-egl-test
 bolt make wayland-egl-test-input
-bolt make wayland-egl-epoxy
+bolt make wayland-egl-test-epoxy
 bolt make wayland-egl-test-input-epoxy
 ```
 
