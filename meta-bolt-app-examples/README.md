@@ -39,8 +39,7 @@ bitbake mc:arm:wayland-egl-test-bolt-image \
 To create the bolt packages for the examples the base package needs to available in the package store. Refer to the [building the base boltpackage](https://github.com/rdkcentral/meta-bolt-distro?tab=readme-ov-file#building-the-base-bolt-package) section to generate the base package and setting up the package store.
 
 
-Follow the same steps mentioned in the [OCI image building instructions for examples](#OCI-image-building-instructions-for-examples) chapter to setup and build the example applications, but instead calling `bitbake <target>`,
-use the [bolt tool](https://github.com/rdkcentral/bolt-tools/tree/main/bolt) to create bolt packages for the applications.
+Follow the same steps mentioned in the [OCI image building instructions for examples](#OCI-image-building-instructions-for-examples) chapter to setup and build the example applications, but instead of calling `bitbake <target>`, use the [bolt tool](https://github.com/rdkcentral/bolt-tools/tree/main/bolt) to create bolt packages for the applications.
 
 ```
 bolt make wayland-egl-test
