@@ -50,7 +50,7 @@ bolt make wayland-egl-test-input-epoxy
 
 ## Running bolt packages in device
 
-To run bolt packages in device, use `bolt push` and `bolt run` as explined in [bolt tool usage](https://github.com/rdkcentral/bolt-tools/tree/main/bolt#usage)
+To run bolt packages in device, use `bolt push` and `bolt run` as explained in [bolt tool usage](https://github.com/rdkcentral/bolt-tools/tree/main/bolt#usage)
 
 ```
 bolt push <remote> com.rdkcentral.base+0.1.0                # here <remote> is the Hostname or alias of a device accessible via SSH in non-interactive mode
