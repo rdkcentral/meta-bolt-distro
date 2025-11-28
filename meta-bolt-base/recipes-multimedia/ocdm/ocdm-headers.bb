@@ -3,15 +3,17 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=847677038847363222ffb66cfa6406c2"
 
 SRC_URI = "git://github.com/rdkcentral/ThunderClientLibraries.git;protocol=https;branch=R4_4"
+SRC_URI += "file://0001-Add-functionality-to-construct-Session-private-data.patch"
+SRC_URI += "file://0001-RDK-OCDM-adapter.patch"
+SRC_URI += "file://0003_MediaType_name_changed.patch"
 
-# Tag R4.4.2
+# Oct 17, 2023
 SRCREV = "09a75a85e1263e0520f182dea6dc19c673e070a1"
 
 S = "${WORKDIR}/git"
 
 do_compile[noexec] = "1"
 do_configure[noexec] = "1"
-do_patch[noexec] = "1"
 
 do_install() {
     install -d ${D}${includedir}/opencdm
