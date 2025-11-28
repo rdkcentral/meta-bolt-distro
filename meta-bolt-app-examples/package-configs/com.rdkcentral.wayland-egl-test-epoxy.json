@@ -1,8 +1,8 @@
 {
-  "id": "com.rdkcentral.wayland_egl_test_epoxy",
+  "id": "com.rdkcentral.wayland-egl-test-epoxy",
   "version": "0.0.1",
   "versionName": "develop",
-  "name": "wayland_egl_test_epoxy",
+  "name": "wayland-egl-test-epoxy",
   "packageType": "runtime",
   "entryPoint": "/usr/bin/wayland-egl-test-epoxy",
   "dependencies": {

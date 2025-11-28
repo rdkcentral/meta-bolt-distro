@@ -1,8 +1,8 @@
 {
-  "id": "com.rdkcentral.wayland_egl_test_input_epoxy",
+  "id": "com.rdkcentral.wayland-egl-test-input-epoxy",
   "version": "0.0.1",
   "versionName": "develop",
-  "name": "wayland_egl_test_input_epoxy",
+  "name": "wayland-egl-test-input-epoxy",
   "packageType": "runtime",
   "entryPoint": "/usr/bin/wayland-egl-test-input-epoxy",
   "dependencies": {

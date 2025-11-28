@@ -36,9 +36,12 @@ bitbake mc:arm:wayland-egl-test-bolt-image \
 ```
 ## Building the example applications as bolt package
 
-To create the bolt packages for the examples, follow the same steps as described in the
-[OCI image building instructions for examples](#OCI-image-building-instructions-for-examples) chapter, but instead calling `bitbake <target>`,
-use the [bolt tool](https://github.com/rdkcentral/bolt-tools/tree/main/bolt) as follows:
+To create the bolt packages for the examples the base package needs to available in the package store. Refer to the [building the base boltpackage](https://github.com/rdkcentral/meta-bolt-distro?tab=readme-ov-file#building-the-base-bolt-package) section to generate the base package and setting up the package store.
+
+
+Follow the same steps mentioned in the [OCI image building instructions for examples](#OCI-image-building-instructions-for-examples) chapter to setup and build the example applications, but instead calling `bitbake <target>`,
+use the [bolt tool](https://github.com/rdkcentral/bolt-tools/tree/main/bolt) to create bolt packages for the applications.
+
 ```
 bolt make wayland-egl-test
 bolt make wayland-egl-test-input
@@ -46,15 +49,21 @@ bolt make wayland-egl-test-epoxy
 bolt make wayland-egl-test-input-epoxy
 ```
 
-To resolve the dependencies specified in the package config, ensure that the dependent packages are available in the local store. Refer to the [dependency handling](https://github.com/astolcenburg/bolt-tools/blob/main/bolt/docs/make.md#dependency-handling) section for the instructions to setting up the local store.
+## Running bolt packages in device
 
-
-
-Use `--install` option in the `bolt make` command to store the output packages in local store.
+To run bolt packages in device, use `bolt push` and `bolt run` as explined in [bolt tool usage](https://github.com/rdkcentral/bolt-tools/tree/main/bolt#usage)
 
 ```
-bolt make wayland-egl-test --install
-bolt make wayland-egl-test-input --install
-bolt make wayland-egl-test-epoxy --install
-bolt make wayland-egl-test-input-epoxy --install
+bolt push <remote> com.rdkcentral.base+0.1.0                # here <remote> is the Hostname or alias of a device accessible via SSH in non-interactive mode
+
+bolt push <remote> com.rdkcentral.wayland-egl-test+0.0.1
+bolt push <remote> com.rdkcentral.wayland-egl-test-input+0.0.1
+bolt push <remote> com.rdkcentral.wayland-egl-test-epoxy+0.0.1
+bolt push <remote> com.rdkcentral.wayland-egl-test-input-epoxy+0.0.1
+
+bolt run <remote> com.rdkcentral.wayland-egl-test+0.0.1
+bolt run <remote> com.rdkcentral.wayland-egl-test-input+0.0.1
+bolt run <remote> com.rdkcentral.wayland-egl-test-epoxy+0.0.1
+bolt run <remote> com.rdkcentral.wayland-egl-test-input-epoxy+0.0.1
+
 ```
