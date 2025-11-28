@@ -50,7 +50,7 @@ To resolve the dependencies specified in the package config, ensure that the dep
 
 
 
-Use `--install` option in the `bolt make` command to store the output packages in local store
+Use `--install` option in the `bolt make` command to store the output packages in local store.
 
 ```
 bolt make wayland-egl-test --install
