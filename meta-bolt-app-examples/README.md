@@ -46,7 +46,8 @@ bolt make wayland-egl-epoxy
 bolt make wayland-egl-test-input-epoxy
 ```
 
-To resolve the dependencies defined in package config, the dependent package must be available in the local store. Follow the details in [dependency handling](https://github.com/astolcenburg/bolt-tools/blob/main/bolt/docs/make.md#dependency-handling) for setting up local store.
+To resolve the dependencies specified in the package config, ensure that the dependent packages are available in the local store. Refer to the [dependency handling](https://github.com/astolcenburg/bolt-tools/blob/main/bolt/docs/make.md#dependency-handling) section for the instructions to setting up the local store.
+
 
 
 Use `--install` option in the `bolt make` command to store the output packages in local store
