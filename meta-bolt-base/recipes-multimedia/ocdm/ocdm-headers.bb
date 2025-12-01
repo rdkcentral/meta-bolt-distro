@@ -3,7 +3,6 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=847677038847363222ffb66cfa6406c2"
 
 SRC_URI = "git://github.com/rdkcentral/ThunderClientLibraries.git;protocol=https;branch=R4_4"
-SRC_URI += "file://0001-Add-functionality-to-construct-Session-private-data.patch"
 SRC_URI += "file://0001-RDK-OCDM-adapter.patch"
 SRC_URI += "file://0003_MediaType_name_changed.patch"
 
