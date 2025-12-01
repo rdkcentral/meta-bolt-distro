@@ -1,0 +1,15 @@
+{
+  "id": "com.rdkcentral.wayland-egl-test",
+  "version": "0.0.1",
+  "versionName": "develop",
+  "name": "wayland-egl-test",
+  "packageType": "runtime",
+  "entryPoint": "/usr/bin/wayland-egl-test",
+  "dependencies": {
+    "com.rdkcentral.base": "0.1.0"
+  },
+  "permissions": [
+  ],
+  "configuration": {
+  }
+}
