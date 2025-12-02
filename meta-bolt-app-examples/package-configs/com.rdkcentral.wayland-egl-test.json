@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "versionName": "develop",
   "name": "wayland-egl-test",
-  "packageType": "runtime",
+  "packageType": "application",
   "entryPoint": "/usr/bin/wayland-egl-test",
   "dependencies": {
     "com.rdkcentral.base": "0.1.0"
