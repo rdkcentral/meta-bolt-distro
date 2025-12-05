@@ -18,5 +18,3 @@ PACKAGES = "${PN} ${PN}-dbg"
 
 FILES:${PN} += "${bindir}"
 FILES:${PN}-dbg += "${bindir}/.debug"
-
-INSANE_SKIP:${PN} = "dev-so"
