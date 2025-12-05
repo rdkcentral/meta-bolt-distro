@@ -20,8 +20,7 @@ RDEPENDS:${PN} = "websocketpp boost-system"
 
 PACKAGES = "${PN} ${PN}-dbg"
 
-FILES:${PN} += "${libdir}"
-FILES:${PN} += "${includedir}/firebolt"
+FILES:${PN} += "${libdir} ${includedir}/firebolt"
 FILES:${PN}-dbg += "${libdir}/.debug"
 
 INSANE_SKIP:${PN} = "dev-so"
