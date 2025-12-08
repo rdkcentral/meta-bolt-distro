@@ -5,10 +5,10 @@ LICENSE = "Apache-2.0"
 
 inherit cmake
 
-FIREBOLT_TRANSPORT_VERSION = "1.0.0-next.21"
+FIREBOLT_TRANSPORT_VERSION = "1.0.0-next.23"
 
 SRC_URI = "https://github.com/rdkcentral/firebolt-native-transport/releases/download/v${FIREBOLT_TRANSPORT_VERSION}/firebolt-native-transport-${FIREBOLT_TRANSPORT_VERSION}.tar.gz"
-SRC_URI[sha256sum] = "fff284166ed2d1331e67417ff949093b7e21c4e47c786fec3373f0dc5023ed71"
+SRC_URI[sha256sum] = "61bfb10f7f32c50ee926dae6f9c462e8a9148a043a907a46e2005eed61c7eadb"
 
 S = "${WORKDIR}/firebolt-native-transport-${FIREBOLT_TRANSPORT_VERSION}"
 

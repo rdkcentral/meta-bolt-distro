@@ -5,10 +5,10 @@ LICENSE = "Apache-2.0"
 
 inherit cmake
 
-FIREBOLT_CORE_VERSION = "1.8.0-next.30"
+FIREBOLT_CORE_VERSION = "1.8.0-next.32"
 
 SRC_URI = "https://github.com/rdkcentral/firebolt-apis/releases/download/v${FIREBOLT_CORE_VERSION}/firebolt-apis--native-core-${FIREBOLT_CORE_VERSION}.tar.gz"
-SRC_URI[sha256sum] = "9782fdc428e343ab1cd5cf43042257dc34ffe13edffd14c513c1370d9d2b53e7"
+SRC_URI[sha256sum] = "df7cd17276e24d1659b1d8b531efaad2d64df6ee981d90d341fc530c83d1eefb"
 
 S = "${WORKDIR}/firebolt-apis--native-core-${FIREBOLT_CORE_VERSION}"
 
