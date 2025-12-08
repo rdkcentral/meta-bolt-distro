@@ -12,8 +12,7 @@ SRC_URI[sha256sum] = "df7cd17276e24d1659b1d8b531efaad2d64df6ee981d90d341fc530c83
 
 S = "${WORKDIR}/firebolt-apis--native-core-${FIREBOLT_CORE_VERSION}"
 
-LICENSE_LOCATION = "${S}/LICENSE"
-LIC_FILES_CHKSUM = "file://${LICENSE_LOCATION};md5=b1e01b26bacfc2232046c90a330332b3"
+LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=b1e01b26bacfc2232046c90a330332b3"
 
 DEPENDS = "firebolt-cpp-transport nlohmann-json"
 RDEPENDS:${PN} = "firebolt-cpp-transport"

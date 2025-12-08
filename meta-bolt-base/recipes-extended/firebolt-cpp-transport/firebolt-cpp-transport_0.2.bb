@@ -12,8 +12,7 @@ SRC_URI[sha256sum] = "61bfb10f7f32c50ee926dae6f9c462e8a9148a043a907a46e2005eed61
 
 S = "${WORKDIR}/firebolt-native-transport-${FIREBOLT_TRANSPORT_VERSION}"
 
-LICENSE_LOCATION = "${S}/LICENSE"
-LIC_FILES_CHKSUM = "file://${LICENSE_LOCATION};md5=b1e01b26bacfc2232046c90a330332b3"
+LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=b1e01b26bacfc2232046c90a330332b3"
 
 DEPENDS = "nlohmann-json websocketpp boost"
 RDEPENDS:${PN} = "websocketpp boost-system"
