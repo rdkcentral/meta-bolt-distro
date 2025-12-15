@@ -11,7 +11,7 @@ RDEPENDS:${PN} += "zip"
 RDEPENDS:${PN} += "tar"
 
 SRC_URI = "git://github.com/rdkcentral/bolt-tools;branch=main;protocol=https"
-SRCREV = "66abeb400eaf3d3aceb8118b159f19cef591a177"
+SRCREV = "6ee7f29b0b4fa1dada086a67d447ff1f9e964cab"
 
 S = "${WORKDIR}/git/bolt"
 
