@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# If not stated otherwise in this file or this component's LICENSE file the
+# following copyright and licenses apply:
+#
+# Copyright 2025 RDK Management
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eu
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+BOLT_ROOT=$(readlink -m "${SCRIPT_DIR}/..")
+
+cleanup() {
+  rm -rf "${BUILD_DIR}"
+  echo "Build failed!"
+  trap "true" ERR INT
+}
+
+trap cleanup ERR INT
+
+build() {
+  set -e
+  unset -f build
+
+  local local_script="${1}"
+  shift
+  local build_targets="$*"
+  shift $#
+
+  source "${local_script}"
+  unset local_script
+
+  if [[ ${build_targets} == mc:* ]]; then
+    echo 'BBMULTICONFIG = "arm arm64 amd64"' >> conf/local.conf
+  fi
+
+  bitbake ${build_targets}
+}
+
+export -f build
+
+run() {
+  bash -c "$*" || return $?
+}
+
+setup_build_dir() {
+  BUILD_DIR=$(mktemp -d -p .)
+  BUILD_DIR=$(readlink -m "${BUILD_DIR}")
+  cd "${BUILD_DIR}"
+  test -f "${BOLT_ROOT}/.env"    && cp "$_" .
+  test -f "${BUILD_DIR}/../.env" && cp "$_" .
+}
+
+cleanup_build_dir() {
+  cd ..
+  rm -rf "${BUILD_DIR}"
+}
+
+setup_build_dir
+run build "${BOLT_ROOT}/setup-environment" base-bolt-image
+run build "${BOLT_ROOT}/setup-environment" \
+  mc:arm:base-bolt-image   \
+  mc:arm64:base-bolt-image \
+  mc:amd64:base-bolt-image
+cleanup_build_dir
+
+setup_build_dir
+run build "${BOLT_ROOT}/meta-bolt-app-examples/setup-environment" \
+  wayland-egl-test-bolt-image \
+  wayland-egl-test-epoxy-bolt-image
+run build "${BOLT_ROOT}/meta-bolt-app-examples/setup-environment" \
+  mc:arm:wayland-egl-test-bolt-image \
+  mc:arm64:wayland-egl-test-bolt-image \
+  mc:amd64:wayland-egl-test-bolt-image  \
+  mc:arm:wayland-egl-test-epoxy-bolt-image \
+  mc:arm64:wayland-egl-test-epoxy-bolt-image \
+  mc:amd64:wayland-egl-test-epoxy-bolt-image
+cleanup_build_dir
+
+echo
+echo "All builds were successful!"

@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# If not stated otherwise in this file or this component's LICENSE file the
+# following copyright and licenses apply:
+#
+# Copyright 2025 RDK Management
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+test -f .env && source $_
+
+BOLT_ROOT=$(readlink -m "$(dirname "${BASH_SOURCE[0]}")")
+BOLT_POKY_SCRIPT=poky/oe-init-build-env
+TEMPLATECONF=${TEMPLATECONF:-${BOLT_ROOT}/meta-bolt/conf/templates}
+
+if [ ! -f "${BOLT_POKY_SCRIPT}" ]; then
+  "${BOLT_ROOT}/repo-sync"
+fi
+
+if [ ! -f "${BOLT_POKY_SCRIPT}" ]; then
+  echo "${BOLT_POKY_SCRIPT} not found!"
+else
+  source "${BOLT_POKY_SCRIPT}"
+fi
+
+if [ -n "${BUILDDIR}" ]; then
+  bolt_layer_setup() {
+    local layer
+    layer=$(readlink -m "${1}")
+
+    if ! grep -qs "^${layer}$" conf/setup.done; then
+      if [ "$(type -t "${2}")" = "function" ]; then
+        "${2}" "${layer}"
+      fi
+
+      if [ -f "${layer}/conf/layer.conf" ]; then
+        if [ "${1}" != "${BOLT_ROOT}" ]; then
+          echo "BBLAYERS:append = \" ${layer}\"" >> conf/bblayers.conf
+        fi
+      fi
+
+      echo "${layer}" >> conf/setup.done
+    fi
+
+    if [ -f "${layer}/conf/conf-notes.txt" ]; then
+      cat "${layer}/conf/conf-notes.txt"
+    fi
+
+    if [ "$(type -t "${3}")" = "function" ]; then
+      "${3}"
+      unset -f "${3}"
+    fi
+
+    unset -f "${2}"
+
+    PATH=${BUILDDIR}/tmp-glibc/work/bolt-linux/bolt-env/1.0-r0/recipe-sysroot-native/usr/bin:${PATH}
+    PATH=${BUILDDIR}/tmp-glibc/work/bolt-linux/bolt-env/1.0-r0/recipe-sysroot-native/usr/sbin:${PATH}
+    PATH=${PATH}:${BOLT_ROOT}/scripts
+  }
+
+  distro_setup() {
+    sed -i "s@##BOLTROOT##@${1}@g" conf/bblayers.conf
+
+    test -n "${BOLT_DL_DIR}"     && echo "DL_DIR = \"$_\""     >> conf/local.conf
+    test -n "${BOLT_SSTATE_DIR}" && echo "SSTATE_DIR = \"$_\"" >> conf/local.conf
+  }
+
+  bolt_layer_setup "${BOLT_ROOT}" distro_setup
+
+  if [ "${#BASH_SOURCE[@]}" = 1 ]; then
+    cat "${BOLT_ROOT}/meta-bolt/conf/conf-notes.txt"
+  fi
+else
+  bolt_layer_setup() {
+    unset -f "${2}"
+    unset -f "${3}"
+  }
+fi
+
+unset TEMPLATECONF
+unset BOLT_POKY_SCRIPT
+unset BOLT_ROOT

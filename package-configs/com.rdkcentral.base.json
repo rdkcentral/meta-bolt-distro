@@ -1,0 +1,14 @@
+{
+  "id": "com.rdkcentral.base",
+  "version": "0.1.0",
+  "versionName": "develop",
+  "name": "Base Layer",
+  "packageType": "base",
+  "entryPoint": "/usr/libexec/DobbyInit",
+  "dependencies": {
+  },
+  "permissions": [
+  ],
+  "configuration": {
+  }
+}

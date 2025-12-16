@@ -6,8 +6,7 @@ app/
 app-restricted/
 base/
 runtime/
-sdk-oss
-sdk-tools
+oss
 
 2)Naming and dir convention within manifests/app dir
 ---------------------------------------

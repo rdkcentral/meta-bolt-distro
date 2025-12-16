@@ -1,0 +1,60 @@
+From c05965a36f3ff0304bd19dab86c0ce5ba6ccd97a Mon Sep 17 00:00:00 2001
+From: kkanag314 <krishnapriya_kanagaraj@comcast.com>
+Date: Tue, 15 Oct 2024 09:29:30 +0000
+Subject: [PATCH] RDK OCDM adapter
+
+---
+ Source/ocdm/adapter/open_cdm_adapter.h       |   9 +
+ Source/ocdm/open_cdm.h                       |  12 +
+
+diff --git a/Source/ocdm/adapter/open_cdm_adapter.h b/Source/ocdm/adapter/open_cdm_adapter.h
+index 13adc55..e81c3db 100644
+--- a/Source/ocdm/adapter/open_cdm_adapter.h
++++ b/Source/ocdm/adapter/open_cdm_adapter.h
+@@ -113,6 +113,15 @@ EXTERNAL uint32_t opencdm_destruct_session_private(struct OpenCDMSession* sessio
+     
+     EXTERNAL OpenCDMError opencdm_gstreamer_session_decrypt_buffer(struct OpenCDMSession* session, GstBuffer* buffer, GstCaps* caps);
+ 
++/**
++ * \brief adds SVP related features to the caps structure (only if needed by the platform)
++ *
++ * \param caps GstCaps to be updated
++ *
++ * \return Zero on success, non-zero on error.
++ */
++
++    EXTERNAL OpenCDMError opencdm_gstreamer_transform_caps(GstCaps** caps);
+ 
+ #ifdef __cplusplus
+ }
+diff --git a/Source/ocdm/open_cdm.h b/Source/ocdm/open_cdm.h
+index 063f2cb..0f875ee 100644
+--- a/Source/ocdm/open_cdm.h
++++ b/Source/ocdm/open_cdm.h
+@@ -58,6 +58,7 @@
+ #include <string.h>
+ 
+ #include <stdio.h>
++#include <string>
+ #include <list>
+ 
+ #ifndef EXTERNAL
+@@ -484,6 +485,17 @@ EXTERNAL OpenCDMError opencdm_session_metadata(const struct OpenCDMSession* sess
+  */
+ EXTERNAL OpenCDMError opencdm_session_resetoutputprotection(struct OpenCDMSession* session);
+ 
++/**
++ * Set a name/value pair into the CDM
++ * \param session \ref OpenCDMSession instance.
++ * \param name \ref Name of parameter
++ * \param value \ref Value of parameter
++ * \return Zero on success, non-zero on error.
++ */
++OpenCDMError opencdm_session_set_parameter(struct OpenCDMSession* session,
++    const std::string& name,
++    const std::string& value);
++
+ /**
+  * Gets Session ID for a session.
+  * \param session \ref OpenCDMSession instance.
+ 

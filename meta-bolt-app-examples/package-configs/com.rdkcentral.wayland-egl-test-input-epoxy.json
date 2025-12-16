@@ -1,0 +1,15 @@
+{
+  "id": "com.rdkcentral.wayland-egl-test-input-epoxy",
+  "version": "0.0.1",
+  "versionName": "develop",
+  "name": "wayland-egl-test-input-epoxy",
+  "packageType": "application",
+  "entryPoint": "/usr/bin/wayland-egl-test-input-epoxy",
+  "dependencies": {
+    "com.rdkcentral.base": "0.1.0"
+  },
+  "permissions": [
+  ],
+  "configuration": {
+  }
+}

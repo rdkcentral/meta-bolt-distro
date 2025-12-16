@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "The 'bolt' tool was not found. To build it, execute:"
+echo "bitbake bolt-env && hash bolt"
