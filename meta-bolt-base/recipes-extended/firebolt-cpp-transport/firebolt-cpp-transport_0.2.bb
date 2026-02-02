@@ -15,7 +15,7 @@ S = "${WORKDIR}/firebolt-native-transport-${FIREBOLT_TRANSPORT_VERSION}"
 LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=b1e01b26bacfc2232046c90a330332b3"
 
 DEPENDS = "nlohmann-json websocketpp boost"
-RDEPENDS:${PN} = "websocketpp boost-system"
+RDEPENDS:${PN} = "boost-system"
 
 PACKAGES = "${PN} ${PN}-dbg"
 
