@@ -24,6 +24,7 @@ RDEPENDS:${PN} += " glib-2.0"
 BAD_RECOMMENDATIONS:append = " shared-mime-info"
 
 RDEPENDS:${PN} += "\
+      base-struct \
       libstdc++ \
       zlib \
 "
