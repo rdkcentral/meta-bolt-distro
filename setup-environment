@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-test -f .env && source $_
+test -f .env && source $_ || true
 
 BOLT_ROOT=$(readlink -m "$(dirname "${BASH_SOURCE[0]}")")
 BOLT_POKY_SCRIPT=poky/oe-init-build-env
@@ -71,8 +71,8 @@ if [ -n "${BUILDDIR}" ]; then
   distro_setup() {
     sed -i "s@##BOLTROOT##@${1}@g" conf/bblayers.conf
 
-    test -n "${BOLT_DL_DIR}"     && echo "DL_DIR = \"$_\""     >> conf/local.conf
-    test -n "${BOLT_SSTATE_DIR}" && echo "SSTATE_DIR = \"$_\"" >> conf/local.conf
+    test -n "${BOLT_DL_DIR}"     && echo "DL_DIR = \"$_\""     >> conf/local.conf || true
+    test -n "${BOLT_SSTATE_DIR}" && echo "SSTATE_DIR = \"$_\"" >> conf/local.conf || true
   }
 
   bolt_layer_setup "${BOLT_ROOT}" distro_setup
