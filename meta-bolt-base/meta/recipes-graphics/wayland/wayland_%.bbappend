@@ -1,8 +1,10 @@
 
 do_install:append() {
 
-    # Remove the non-client parts of the wayland package
-    rm -rf ${D}${libdir}/libwayland-cursor.so*
+    # don't remove libwayland-cursor 
+    # toyota flutter-auto embedder needs libwayland-cursor https://github.com/toyota-connected/ivi-homescreen/tree/v2.0
+    # rm -rf ${D}${libdir}/libwayland-cursor.so*
+    # removes wayland.xml core protocol description
     rm -rf ${D}${datadir}/wayland
 }
 
