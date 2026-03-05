@@ -6,11 +6,11 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 inherit cmake
 
-PV = "1.1.2"
+PV = "1.1.3"
 PR = "r0"
 
 SRC_URI = "https://github.com/rdkcentral/firebolt-cpp-transport/releases/download/v${PV}/firebolt-cpp-transport-${PV}.tar.gz"
-SRC_URI[sha256sum] = "892f08b1c532fc5ac0029d759612dd2dc1b521d43882a0f70c22a02ff6ca05e7"
+SRC_URI[sha256sum] = "0a0c9394395a514d3ba6931a6c656886523c6b3f038b0cb991c27c837f0e506e"
 
 S = "${WORKDIR}/firebolt-cpp-transport-${PV}"
 

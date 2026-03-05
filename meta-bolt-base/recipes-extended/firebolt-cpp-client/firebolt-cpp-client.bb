@@ -6,11 +6,11 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 inherit cmake
 
-PV = "0.5.0"
+PV = "0.5.1"
 PR = "r0"
 
 SRC_URI = "https://github.com/rdkcentral/firebolt-cpp-client/releases/download/v${PV}/firebolt-cpp-client-${PV}.tar.gz"
-SRC_URI[sha256sum] = "d1fcc82c221121f3c221a594a2e7da4a52e552a62f1d26a0b4c58a2ed897d355"
+SRC_URI[sha256sum] = "b3c59801ec5a4d9233e4f2a398d42ea9e39adad7377ec265dda690c50489f625"
 
 S = "${WORKDIR}/firebolt-cpp-client-${PV}"
 
