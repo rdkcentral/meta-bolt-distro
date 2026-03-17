@@ -50,6 +50,10 @@ RDEPENDS:${PN} += "\
      rialto-ocdm \
      rialto-gstreamer \
 "
+# Include the firebolt client libraries
+RDEPENDS:${PN} += "\
+     firebolt-cpp-client \
+"
 # Current assumption is busybox will be part of Standard Profile of base-layer 
 # Possibly later moved to debug base layer extension and use other shell provider like "dash" instead
 
