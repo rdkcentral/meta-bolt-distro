@@ -59,8 +59,8 @@ setup_build_dir() {
   BUILD_DIR=$(mktemp -d -p .)
   BUILD_DIR=$(readlink -m "${BUILD_DIR}")
   cd "${BUILD_DIR}"
-  test -f "${BOLT_ROOT}/.env"    && cp "$_" .
-  test -f "${BUILD_DIR}/../.env" && cp "$_" .
+  test -f "${BOLT_ROOT}/.env"    && cp "$_" . || true
+  test -f "${BUILD_DIR}/../.env" && cp "$_" . || true
 }
 
 cleanup_build_dir() {

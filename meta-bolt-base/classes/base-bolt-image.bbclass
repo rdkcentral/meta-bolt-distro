@@ -33,23 +33,19 @@ ROOTFS_POSTPROCESS_COMMAND:append = " stub_gpu_libraries;"
 ROOTFS_POSTPROCESS_COMMAND:append = " add_ca_certificate_mount_points;"
 
 
-# This removes the stub and actual GPU libraries from the rootfs and replaces
-# then with regular files as mount points.  At runtime the real versions of
-# these libraries will be bind mounted in from the vendor rootfs.
+# This removes the stub GPU libraries from the rootfs.
+# At runtime the real versions of these libraries will be
+# provided by the GPU layer.
 stub_gpu_libraries() {
-    rm -f ${IMAGE_ROOTFS}/usr/lib/libwayland-egl.so*
-    touch ${IMAGE_ROOTFS}/usr/lib/libwayland-egl.so.1
-
+    rm -f ${IMAGE_ROOTFS}/usr/lib/libEGL.so
     rm -f ${IMAGE_ROOTFS}/usr/lib/libEGL.so.1
-    touch ${IMAGE_ROOTFS}/usr/lib/libEGL.so.1
 
+    rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv1_CM.so
     rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv1_CM.so.1
-    touch ${IMAGE_ROOTFS}/usr/lib/libGLESv1_CM.so.1
 
+    rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so
     rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so.2
-    touch ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so.2
 }
-
 
 # Adds some standard mount points for the SSL CA certs from the system, this
 # is very EntOS specific and probably want to bundle a set of CA certs into

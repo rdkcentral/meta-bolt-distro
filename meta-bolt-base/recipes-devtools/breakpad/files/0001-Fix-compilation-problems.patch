@@ -1,0 +1,48 @@
+From 7defb479ebb2dc2d4250a021d7f73e225b1303f7 Mon Sep 17 00:00:00 2001
+From: Adam Stolcenburg <adam_stolcenburg@comcast.com>
+Date: Fri, 13 Feb 2026 13:01:50 +0100
+Subject: [PATCH] Fix compilation problems
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This change fixes the following compilation problems encountered on
+Ubuntu 24.04:
+
+../git/src/client/linux/handler/minidump_descriptor.h:115:3: error: ‘uintptr_t’ does not name a type
+  115 |   uintptr_t address_within_principal_mapping() const {
+
+../git/src/processor/exploitability_linux.cc:519:11: error: argument 1 null where non-null expected [-Werror=nonnull]
+  519 |     fclose(objdump_fp);
+---
+ src/client/linux/handler/minidump_descriptor.h | 1 +
+ src/processor/exploitability_linux.cc          | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/client/linux/handler/minidump_descriptor.h b/src/client/linux/handler/minidump_descriptor.h
+index c7e4f2b3..92227584 100644
+--- a/src/client/linux/handler/minidump_descriptor.h
++++ b/src/client/linux/handler/minidump_descriptor.h
+@@ -32,6 +32,7 @@
+ 
+ #include <assert.h>
+ #include <sys/types.h>
++#include <cstdint>
+ 
+ #include <string>
+ 
+diff --git a/src/processor/exploitability_linux.cc b/src/processor/exploitability_linux.cc
+index 798056df..057fc1ca 100644
+--- a/src/processor/exploitability_linux.cc
++++ b/src/processor/exploitability_linux.cc
+@@ -516,7 +516,6 @@ bool ExploitabilityLinux::DisassembleBytes(const string& architecture,
+            raw_bytes_tmpfile);
+   FILE* objdump_fp = popen(cmd, "r");
+   if (!objdump_fp) {
+-    fclose(objdump_fp);
+     unlink(raw_bytes_tmpfile);
+     BPLOG(ERROR) << "Failed to call objdump.";
+     return false;
+-- 
+2.43.0
+
