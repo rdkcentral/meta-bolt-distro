@@ -11,8 +11,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=327e572d11c37963726ba0b02d30cf2c"
 
 SRC_URI = "git://github.com/rdkcentral/rialto;protocol=https;branch=master"
 
-# SRCREV for v0.17.0
-SRCREV = "fc2f3fe0cd5b75a19b91250b839984a931b8617a"
+# SRCREV for v0.19.0
+SRCREV = "6688f0aea9e132d1f37e79202b7fd73d0980de48"
 
 SRC_URI:append = " file://0001-disable-wrappers-for-client-build.patch \
                  "
