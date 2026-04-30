@@ -80,7 +80,7 @@ IMAGE_CMD:oci:append() {
 python __anonymous() {
     if d.getVar('BOLT_ENABLE_SBOM') == '1':
         bb.note("BOLT: Enabling SPDX SBOM generation")
-        bb.parse.BBHandler.inherit('create-spdx', d)
+        bb.parse.BBHandler.inherit('create-spdx', d.getVar("__file__"), d.getVar("__line__"), d)
         d.setVar('SPDX_PRETTY', '1')
 }
 
