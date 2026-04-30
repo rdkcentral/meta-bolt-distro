@@ -73,6 +73,7 @@ if [ -n "${BUILDDIR}" ]; then
 
     test -n "${BOLT_DL_DIR}"     && echo "DL_DIR = \"$_\""     >> conf/local.conf || true
     test -n "${BOLT_SSTATE_DIR}" && echo "SSTATE_DIR = \"$_\"" >> conf/local.conf || true
+    test "${BOLT_ENABLE_SBOM}" = "1" && echo "BOLT_ENABLE_SBOM = \"1\"" >> conf/local.conf || true
   }
 
   bolt_layer_setup "${BOLT_ROOT}" distro_setup
