@@ -76,9 +76,11 @@ IMAGE_CMD:oci:append() {
     ln -fs ${file_name} ${IMAGE_BASENAME}.tar
 }
 
-# Set BOLT_ENABLE_SBOM = "1" in local.conf to enable SPDX SBOM generation
-BOLT_ENABLE_SBOM ?= "0"
-inherit ${@ 'create-spdx' if d.getVar('BOLT_ENABLE_SBOM') == '1' else ''}
+# Enable SBOM generation
+python __anonymous() {
+    if d.getVar('BOLT_ENABLE_SBOM') == '1':
+        bb.note("BOLT: Enabling SPDX SBOM generation")
+        bb.parse.BBHandler.inherit('create-spdx', d)
+        d.setVar('SPDX_PRETTY', '1')
+}
 
-# Enable pretty print only when SBOM is enabled
-SPDX_PRETTY = "${@ '1' if d.getVar('BOLT_ENABLE_SBOM') == '1' else '0' }"
