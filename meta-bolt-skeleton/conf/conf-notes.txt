@@ -1,0 +1,7 @@
+
+  bitbake skeleton-bolt-image             # no multi config
+
+  bitbake mc:arm:skeleton-bolt-image   \
+          mc:arm64:skeleton-bolt-image \
+          mc:amd64:skeleton-bolt-image    # requires multi config
+
