@@ -1,0 +1,14 @@
+{
+  "id": "com.rdkcentral.skeleton",
+  "version": "auto",
+  "name": "skeleton",
+  "packageType": "application",
+  "entryPoint": "/usr/bin/skeleton",
+  "dependencies": {
+    "com.rdkcentral.base": "0.3.0"
+  },
+  "permissions": [
+  ],
+  "configuration": {
+  }
+}
