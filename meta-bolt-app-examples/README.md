@@ -53,16 +53,16 @@ bolt make wayland-egl-test-input-epoxy
 To run bolt packages on device, use `bolt push` and `bolt run` as explained in [bolt tool usage](https://github.com/rdkcentral/bolt-tools/tree/main/bolt#usage)
 
 ```
-bolt push <remote> com.rdkcentral.base+0.1.0                # here <remote> is the Hostname or alias of a device accessible via SSH in non-interactive mode
+bolt push <remote> com.rdkcentral.base+0.3.0                # here <remote> is the Hostname or alias of a device accessible via SSH in non-interactive mode
 
-bolt push <remote> com.rdkcentral.wayland-egl-test+0.0.1
-bolt push <remote> com.rdkcentral.wayland-egl-test-input+0.0.1
-bolt push <remote> com.rdkcentral.wayland-egl-test-epoxy+0.0.1
-bolt push <remote> com.rdkcentral.wayland-egl-test-input-epoxy+0.0.1
+bolt push <remote> com.rdkcentral.wayland-egl-test+0.3.0
+bolt push <remote> com.rdkcentral.wayland-egl-test-input+0.3.0
+bolt push <remote> com.rdkcentral.wayland-egl-test-epoxy+0.3.0
+bolt push <remote> com.rdkcentral.wayland-egl-test-input-epoxy+0.3.0
 
-bolt run <remote> com.rdkcentral.wayland-egl-test+0.0.1
-bolt run <remote> com.rdkcentral.wayland-egl-test-input+0.0.1
-bolt run <remote> com.rdkcentral.wayland-egl-test-epoxy+0.0.1
-bolt run <remote> com.rdkcentral.wayland-egl-test-input-epoxy+0.0.1
+bolt run <remote> com.rdkcentral.wayland-egl-test+0.3.0
+bolt run <remote> com.rdkcentral.wayland-egl-test-input+0.3.0
+bolt run <remote> com.rdkcentral.wayland-egl-test-epoxy+0.3.0
+bolt run <remote> com.rdkcentral.wayland-egl-test-input-epoxy+0.3.0
 
 ```
