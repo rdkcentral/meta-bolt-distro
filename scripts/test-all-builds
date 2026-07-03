@@ -79,14 +79,18 @@ cleanup_build_dir
 setup_build_dir
 run build "${BOLT_ROOT}/meta-bolt-app-examples/setup-environment" \
   wayland-egl-test-bolt-image \
-  wayland-egl-test-epoxy-bolt-image
+  wayland-egl-test-epoxy-bolt-image \
+  vkmark-bolt-image
 run build "${BOLT_ROOT}/meta-bolt-app-examples/setup-environment" \
   mc:arm:wayland-egl-test-bolt-image \
   mc:arm64:wayland-egl-test-bolt-image \
   mc:amd64:wayland-egl-test-bolt-image  \
   mc:arm:wayland-egl-test-epoxy-bolt-image \
   mc:arm64:wayland-egl-test-epoxy-bolt-image \
-  mc:amd64:wayland-egl-test-epoxy-bolt-image
+  mc:amd64:wayland-egl-test-epoxy-bolt-image \
+  mc:arm:vkmark-bolt-image \
+  mc:arm64:vkmark-bolt-image \
+  mc:amd64:vkmark-bolt-image
 cleanup_build_dir
 
 echo

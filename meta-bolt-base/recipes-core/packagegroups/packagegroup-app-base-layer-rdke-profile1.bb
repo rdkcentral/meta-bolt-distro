@@ -37,6 +37,7 @@ RDEPENDS:${PN} += "\
      wayland \
      westeros-simpleshell \
      essos \
+     ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-stub', '', d)} \
 "
 # Include just the base gstreamer1.x framework libs, not any plugins
 # Part of Profile1 (standard profile) but not part of Profile2 (slim profile)

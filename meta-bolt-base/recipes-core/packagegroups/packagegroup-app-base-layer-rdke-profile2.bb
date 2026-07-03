@@ -35,6 +35,7 @@ RDEPENDS:${PN} += "\
      wayland \
      westeros-simpleshell \
      essos \
+     ${@bb.utils.contains('DISTRO_FEATURES', 'vulkan', 'vulkan-stub', '', d)} \
 "
 # Include the rialto libraries but not rialto-gstreamer
 # TODO HACK for now. 
