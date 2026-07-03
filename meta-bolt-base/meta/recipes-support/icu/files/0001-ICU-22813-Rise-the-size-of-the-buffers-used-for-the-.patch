@@ -1,4 +1,4 @@
-From 40490404ed4d5a9f45d112924fa0faaad3f33eb4 Mon Sep 17 00:00:00 2001
+From 0a9813a662ef5af10e2ac12e43ba27ce9b61aa55 Mon Sep 17 00:00:00 2001
 From: Carlos Alberto Lopez Perez <clopez@igalia.com>
 Date: Mon, 1 Jul 2024 22:15:18 +0100
 Subject: [PATCH] ICU-22813 Rise the size of the buffers used for the command
@@ -17,15 +17,15 @@ to truncated paths.
 
 Upstream-Status: Backport [https://github.com/unicode-org/icu/commit/db70adaddcfa8050db6a69cdfef080a7f1423ad7]
 ---
- tools/pkgdata/pkgdata.cpp | 6 +++---
- tools/toolutil/pkg_genc.h | 5 ++---
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ tools/pkgdata/pkgdata.cpp | 10 +++++-----
+ tools/toolutil/pkg_genc.h |  5 ++---
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/tools/pkgdata/pkgdata.cpp b/tools/pkgdata/pkgdata.cpp
-index 8de99cb..fbf253b 100644
+index 8de99cb..12caf7a 100644
 --- a/tools/pkgdata/pkgdata.cpp
 +++ b/tools/pkgdata/pkgdata.cpp
-@@ -1131,7 +1131,7 @@ normal_symlink_mode:
+@@ -1131,10 +1131,10 @@ normal_symlink_mode:
  
  static int32_t pkg_installLibrary(const char *installDir, const char *targetDir, UBool noVersion) {
      int32_t result = 0;
@@ -33,7 +33,11 @@ index 8de99cb..fbf253b 100644
 +    char cmd[LARGE_BUFFER_MAX_SIZE];
  
      auto ret = snprintf(cmd,
-             SMALL_BUFFER_MAX_SIZE,
+-            SMALL_BUFFER_MAX_SIZE,
++            sizeof(cmd),
+             "cd %s && %s %s %s%s%s",
+             targetDir,
+             pkgDataFlags[INSTALL_CMD],
 @@ -1202,7 +1202,7 @@ static int32_t pkg_installLibrary(const char *installDir, const char *targetDir,
  
  static int32_t pkg_installCommonMode(const char *installDir, const char *fileName) {
@@ -52,6 +56,15 @@ index 8de99cb..fbf253b 100644
  
      if (!T_FileStream_file_exists(installDir)) {
          UErrorCode status = U_ZERO_ERROR;
+@@ -1260,7 +1260,7 @@ static int32_t pkg_installFileMode(const char *installDir, const char *srcDir, c
+                 }
+ 
+                 auto ret = snprintf(cmd,
+-                        SMALL_BUFFER_MAX_SIZE,
++                        sizeof(cmd),
+                         "%s %s%s%s %s%s%s",
+                         pkgDataFlags[INSTALL_CMD],
+                         srcDir, PKGDATA_FILE_SEP_STRING, buffer,
 diff --git a/tools/toolutil/pkg_genc.h b/tools/toolutil/pkg_genc.h
 index 72d9687..cfd5319 100644
 --- a/tools/toolutil/pkg_genc.h
