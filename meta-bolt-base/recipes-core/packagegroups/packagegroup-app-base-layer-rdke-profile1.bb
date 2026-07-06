@@ -34,6 +34,7 @@ RDEPENDS:${PN} += " dobby-init"
 # Stuff required for basic graphics to display
 RDEPENDS:${PN} += "\
      khronos-stubs \
+     vulkan-loader \
      wayland \
      westeros-simpleshell \
      essos \

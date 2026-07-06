@@ -45,6 +45,8 @@ stub_gpu_libraries() {
 
     rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so
     rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so.2
+
+    rm -f ${IMAGE_ROOTFS}/usr/lib/libvulkan.so.1*
 }
 
 # Adds some standard mount points for the SSL CA certs from the system, this
