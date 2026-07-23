@@ -133,7 +133,7 @@ Use `bolt push` and `bolt run` as described in their help pages —
 `<remote>` is the hostname or alias of a device reachable over SSH in
 non-interactive mode.
 ```
-bolt push <remote> com.rdkcentral.base+0.3.0
+bolt push <remote> com.rdkcentral.base+0.3.1
 bolt push <remote> com.rdkcentral.skeleton+*
 
 bolt run  <remote> com.rdkcentral.skeleton+*
