@@ -5,7 +5,7 @@
   "packageType": "application",
   "entryPoint": "/usr/bin/skeleton",
   "dependencies": {
-    "com.rdkcentral.base": "0.3.0"
+    "com.rdkcentral.base": "0.3.1"
   },
   "permissions": [
   ],
