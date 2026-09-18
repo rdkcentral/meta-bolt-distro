@@ -10,8 +10,8 @@ RDEPENDS:${PN} += "umoci"
 RDEPENDS:${PN} += "zip"
 RDEPENDS:${PN} += "tar"
 
-SRC_URI = "git://github.com/rdkcentral/bolt-tools;branch=main;protocol=https"
-SRCREV = "d126c4df5ada57b2d5c4762877d04874f8425cb9"
+SRC_URI = "git://github.com/rdkcentral/bolt-tools.git;branch=main;protocol=https"
+SRCREV = "ab6f1c456f814157d087f6cb82080f3931d0e4e2"
 
 S = "${WORKDIR}/git/bolt"
 

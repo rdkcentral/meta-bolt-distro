@@ -31,6 +31,7 @@ TOOLCHAIN_TARGET_TASK:append = " dobby-init-dev"
 
 ROOTFS_POSTPROCESS_COMMAND:append = " stub_gpu_libraries;"
 ROOTFS_POSTPROCESS_COMMAND:append = " add_ca_certificate_mount_points;"
+ROOTFS_POSTPROCESS_COMMAND:append = " add_timezone_entries;"
 
 
 # This removes the stub GPU libraries from the rootfs.
@@ -45,8 +46,6 @@ stub_gpu_libraries() {
 
     rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so
     rm -f ${IMAGE_ROOTFS}/usr/lib/libGLESv2.so.2
-
-    rm -f ${IMAGE_ROOTFS}/usr/lib/libvulkan.so.1*
 }
 
 # Adds some standard mount points for the SSL CA certs from the system, this
@@ -56,7 +55,11 @@ add_ca_certificate_mount_points() {
    install -d ${IMAGE_ROOTFS}/etc/ssl/certs
    install -d ${IMAGE_ROOTFS}/usr/share/ca-certificates
 }
-
+add_timezone_entries() {
+   install -d ${IMAGE_ROOTFS}/usr/share/zoneinfo
+   touch  ${IMAGE_ROOTFS}/etc/localtime
+   touch  ${IMAGE_ROOTFS}/etc/timezone
+}
 # Is this required? Point first exec in oci image. need to test/check if needed for now point to empty or DobbyInit
 OCI_IMAGE_ENTRYPOINT = "/usr/libexec/DobbyInit"
 
