@@ -14,7 +14,6 @@ Each release version of this distribution is derived from a specific release ver
 
 - meta-bolt - bitbake config files defining the **bolt** distro
 - meta-bolt-base - meta-layer with recipes providing configuration for packages used by the base layer
-- meta-bolt-app-examples - meta-layer with recipes required for building sample applications. This layer is not enabled by default; to use it, it must be added to the bblayers.conf file
 - meta-bolt-tools - meta-layer with recipes for tools related to creation of OCI artifacts from build artifacts and interaction with STB
 - manifests - repo tool manifest files defining all meta-layer repositories and versions required for specific version of this distribution and to build specific version of base layer or example application layer oci artifacts using this distribution.
 
@@ -107,7 +106,7 @@ bolt make base --install
 
 ## Building examples
 
-Instructions for creating examples can be found in the [meta-bolt-app-examples/README.md](meta-bolt-app-examples/README.md) file
+Instructions for creating examples can be found in the [meta-bolt-app-examples/README.md](https://github.com/rdkcentral/meta-bolt-app-examples/blob/develop/README.md) file
 
 ## .env
 
