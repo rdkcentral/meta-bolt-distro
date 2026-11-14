@@ -38,6 +38,11 @@ ROOTFS_POSTPROCESS_COMMAND:append = " add_timezone_entries;"
 # At runtime the real versions of these libraries will be
 # provided by the GPU layer.
 stub_gpu_libraries() {
+    # Dhruv: the platform provides its own libwayland-egl, so leave an empty
+    # mount point instead of shipping the Wayland 1.20.0 copy.
+    rm -f ${IMAGE_ROOTFS}/usr/lib/libwayland-egl.so*
+    touch ${IMAGE_ROOTFS}/usr/lib/libwayland-egl.so.1
+
     rm -f ${IMAGE_ROOTFS}/usr/lib/libEGL.so
     rm -f ${IMAGE_ROOTFS}/usr/lib/libEGL.so.1
 
