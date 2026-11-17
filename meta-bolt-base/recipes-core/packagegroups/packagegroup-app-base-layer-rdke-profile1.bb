@@ -55,6 +55,8 @@ RDEPENDS:${PN} += "\
 RDEPENDS:${PN} += "\
      firebolt-cpp-client \
 "
+# EyilClient pulls in the shared protocol and transport runtime dependencies.
+RDEPENDS:${PN} += " eyil-client"
 # Current assumption is busybox will be part of Standard Profile of base-layer 
 # Possibly later moved to debug base layer extension and use other shell provider like "dash" instead
 

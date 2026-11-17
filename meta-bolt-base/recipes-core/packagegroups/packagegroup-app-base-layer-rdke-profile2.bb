@@ -42,6 +42,8 @@ RDEPENDS:${PN} += "\
 RDEPENDS:${PN} += "\
      rialto-client \
 "
+# EyilClient is available to applications on both base-layer profiles.
+RDEPENDS:${PN} += " eyil-client"
 # Current assumption is busybox will be part of Standard Profile of base-layer. 
 # test with using "dash" instead in slim Profile (Profile2)
 # Possibly later moved to debug base layer extension and use other shell provider like "dash" instead

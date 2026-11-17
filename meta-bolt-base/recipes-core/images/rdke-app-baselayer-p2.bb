@@ -21,6 +21,7 @@ IMAGE_FEATURES += "read-only-rootfs"
 
 TOOLCHAIN_TARGET_TASK:append = " libstdc++-dev"
 TOOLCHAIN_TARGET_TASK:append = " dobby-init-dev"
+TOOLCHAIN_TARGET_TASK:append = " eyil-client-dev"
 
 
 ROOTFS_POSTPROCESS_COMMAND:append = " stub_gpu_libraries;"
