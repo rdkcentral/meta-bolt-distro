@@ -7,12 +7,12 @@
 
 SUMMARY = "Rialto Client Library"
 LICENSE  = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=327e572d11c37963726ba0b02d30cf2c"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=b679e934da2525398d071accae36703c"
 
 SRC_URI = "git://github.com/rdkcentral/rialto;protocol=https;branch=master"
 
-# SRCREV for v0.25.0
-SRCREV = "7d7642c47658ee3cd20396e0026bc34c8e3c50c7"
+# SRCREV for v1.0.0
+SRCREV = "6558f5206d279f95fcac1c955db77e85e6102a2d"
 
 SRC_URI:append = " file://0001-disable-wrappers-for-client-build.patch \
                  "
