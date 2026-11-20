@@ -1,6 +1,0 @@
-{
-  "config": "com.rdkcentral.wayland-egl-test-input.json",
-  "bitbake": {
-    "image": "wayland-egl-test-bolt-image"
-  }
-}
